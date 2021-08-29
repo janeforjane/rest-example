@@ -1,0 +1,9 @@
+PUT http://localhost:19000/cats/1
+Content-Type: application/json
+
+{
+  "name": "Spookyyy",
+  "color": "Black&White"
+}
+
+###
