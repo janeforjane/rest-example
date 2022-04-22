@@ -8,14 +8,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.CatService;
-import service.CatServiceImpl;
+import utils.PropertiesClass;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
  * @RestController— говорит спрингу, что данный класс является REST контроллером.
  * Т.е. в данном классе будет реализована логика обработки клиентских запросов
+ * @RequestMapping(value = "/cat" нужно чтобы разделить несколько сервисов в одном приложении.
+ * в зависимости от запроса (/cat) будет обращаться в соответствующий контроллер
  */
 @RestController
 //@RequestMapping(value = "/cat")
@@ -37,6 +40,9 @@ public class CatController {
     public CatController(CatService catService) {
         this.catService = catService;
     }
+
+    @Autowired
+    public PropertiesClass propertiesClass;
 
     /**
      * @PostMapping(value = "/cats") — здесь мы обозначаем,
@@ -119,6 +125,23 @@ public class CatController {
                 ? new ResponseEntity<>(HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
+
+    @GetMapping(value = "/settings")
+    public ResponseEntity<Cat> getSettings() {
+        log.info("I'm in GetMapping getSettings method");
+
+        Map<String, String> settings = propertiesClass.getSettings();
+
+        for (Map.Entry<String, String> stringStringEntry : settings.entrySet()) {
+            System.out.println(stringStringEntry);
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+
 
 }
 

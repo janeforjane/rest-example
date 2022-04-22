@@ -1,2 +1,8 @@
-server:
-  port: 19000
+application:
+  server:
+    port: 19000
+  properties:
+      11: fhfh
+      12: olol
+      13: fbfb
+
