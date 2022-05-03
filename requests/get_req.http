@@ -2,3 +2,9 @@ GET http://localhost:19000/cats
 
 
 ###
+
+GET http://localhost:8080/mapsettings
+
+###
+
+GET http://localhost:8080/listsettings

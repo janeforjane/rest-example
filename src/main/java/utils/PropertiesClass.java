@@ -8,7 +8,12 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
+/**
+ *
+ */
+
+
+@Component
 //@EnableConfigurationProperties
 @ConfigurationProperties(prefix = "application.properties")
 public class PropertiesClass {

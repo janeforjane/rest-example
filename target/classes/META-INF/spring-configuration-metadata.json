@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "application.properties",
+      "type": "utils.PropertiesClass",
+      "sourceType": "utils.PropertiesClass"
+    },
+    {
+      "name": "application.secondproperties",
+      "type": "utils.PropertiesSecondClass",
+      "sourceType": "utils.PropertiesSecondClass"
+    }
+  ],
+  "properties": [
+    {
+      "name": "application.properties.settings",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "sourceType": "utils.PropertiesClass"
+    },
+    {
+      "name": "application.secondproperties.list",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "utils.PropertiesSecondClass"
+    }
+  ],
+  "hints": []
+}

@@ -4,12 +4,15 @@ import model.Cat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.CatService;
 import utils.PropertiesClass;
+import utils.PropertiesSecondClass;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +34,7 @@ public class CatController {
     //todo почему-то идея потребовала сделать конструктор
 
 
+
     /** @Autowired — говорит спрингу, что в этом месте необходимо внедрить зависимость.
      * В конструктор мы передаем интерфейс CatService.
      * Реализацию данного сервиса мы пометили аннотацией @Service,
@@ -43,6 +47,13 @@ public class CatController {
 
     @Autowired
     public PropertiesClass propertiesClass;
+
+    @Autowired
+    public PropertiesSecondClass propertiesSecondClass;
+
+    @Value("${application.animal}")
+    public String animal;
+
 
     /**
      * @PostMapping(value = "/cats") — здесь мы обозначаем,
@@ -126,15 +137,40 @@ public class CatController {
                 : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
     }
 
-    @GetMapping(value = "/settings")
-    public ResponseEntity<Cat> getSettings() {
-        log.info("I'm in GetMapping getSettings method");
+    @GetMapping(value = "/mapsettings")
+    public ResponseEntity<Cat> getMapSettings() {
+        log.info("I'm in GetMapping getMapSettings method");
 
         Map<String, String> settings = propertiesClass.getSettings();
+
+        System.out.println("Map settings:");
 
         for (Map.Entry<String, String> stringStringEntry : settings.entrySet()) {
             System.out.println(stringStringEntry);
         }
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @GetMapping(value = "/listsettings")
+    public ResponseEntity<Cat> getListSettings() {
+        log.info("I'm in GetMapping getListSettings method");
+
+        List<String> list = new ArrayList<>();
+
+        for (String s : propertiesSecondClass.getList()) {
+            list.add(s);
+        }
+
+        System.out.println("List settings:" + list.size());
+
+        for (String s : list) {
+            System.out.println(s);
+        }
+
+        System.out.println("Animal is: " + animal);
 
 
         return new ResponseEntity<>(HttpStatus.OK);
