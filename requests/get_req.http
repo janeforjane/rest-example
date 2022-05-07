@@ -1,4 +1,4 @@
-GET http://localhost:19000/cats
+GET http://localhost:8080/cats
 
 
 ###
@@ -8,3 +8,7 @@ GET http://localhost:8080/mapsettings
 ###
 
 GET http://localhost:8080/listsettings
+
+###
+
+GET http://localhost:8080/putparams?paramone=value1&paramtwo=2&paramdate=2019-01-01T00:00:00&paramboolean=false

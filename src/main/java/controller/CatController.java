@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import service.CatService;
 import utils.PropertiesClass;
 import utils.PropertiesSecondClass;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +60,7 @@ public class CatController {
     /**
      * @PostMapping(value = "/cats") — здесь мы обозначаем,
      * что данный метод обрабатывает POST запросы на адрес /cats
-     * @param cat - значение этого параметра подставляется из тела запроса.
+     * @param cat - значение этого параметра подставляется из тела запроса (json).
      *            Об этом говорит аннотация  @RequestBody
      * @return ResponseEntity — специальный класс для возврата ответов.
      * С помощью него мы сможем в дальнейшем вернуть клиенту HTTP статус код.
@@ -172,9 +174,26 @@ public class CatController {
 
         System.out.println("Animal is: " + animal);
 
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * по умолчанию для всех параметров: required = true, то есть параметры - обязательные
+     * name - имя параметра, которое указывается при запросе
+     */
+    @GetMapping(value = "/putparams")
+    public ResponseEntity<Cat> putparams(@RequestParam(name = "paramone", defaultValue = "defaultparameter")String par1,
+                                         @RequestParam(name = "paramtwo")int par2,
+                                         @RequestParam(name = "paramdate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDate par3,
+                                         @RequestParam(name = "paramboolean", required = false, defaultValue = "true") boolean par4) {
+        log.info("I'm in GetMapping putparams method");
+
+        System.out.println("paramone = " + par1);
+        System.out.println("paramtwo = " + par2);
+        System.out.println("paramdate = " + par3);
+        System.out.println("paramboolean = " + par4);
 
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 
 

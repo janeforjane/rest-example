@@ -1,4 +1,4 @@
-POST http://localhost:19000/cats
+POST http://localhost:8080/cats
 Content-Type: application/json
 
 {
